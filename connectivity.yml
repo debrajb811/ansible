@@ -1,0 +1,31 @@
+---
+- name: Test Connectivity
+  hosts: all
+  become: yes
+  vars:
+   pk_http: httpd
+   pk_mysql: mysql
+   pk_php: php
+
+  tasks:
+   - name: Install apache server
+     yum:
+       pkg:
+         - "{{pk_http}}"
+       state: latest
+
+   - name: Ansible copy with variables
+     copy: src={{ item.src }} dest={{ item.dest }}
+     with_items:
+             - { src: '/tmp/index.html', dest: '/var/www/html' }
+
+   - name: Restart httpd service
+     service:
+          name: httpd
+          state: restarted
+
+   - name: Test connection to hosts
+     uri:
+       url: http://localhost/index.html
+       return_content: yes
+       status_code: 200

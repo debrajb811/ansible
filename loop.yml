@@ -1,0 +1,20 @@
+---
+- name: Create Group and Users with Loop
+  hosts: all
+  become: yes
+
+  tasks:
+   - name: Create sales group
+     group:
+        name: sales
+        state: present
+
+   - name: Add generic users
+     user:
+        name: "{{ item }}"
+        state: present
+        groups: "sales"
+     loop:
+        - debraj
+        - payel
+        - gautam

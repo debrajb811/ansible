@@ -21,7 +21,7 @@
         local_action: 
           module: ec2_group
           name: "{{ security_group }}"
-          description: my ansible sg2
+          description: my ansible sg1
           region: "{{ region }}"
           rules:
             - proto: tcp
@@ -33,8 +33,8 @@
               to_port: 80
               cidr_ip: 0.0.0.0/0
             - proto: tcp
-              from_port: 443
-              to_port: 443
+              from_port: 8080
+              to_port: 8080
               cidr_ip: 0.0.0.0/0
           rules_egress:
             - proto: all

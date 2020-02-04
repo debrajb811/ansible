@@ -5,11 +5,15 @@
   
   tasks:
 
-    - name: Install Required Packages
-      yum: name={{ item }} state=present
-      with_items:
-        - java-1.8.0-openjdk
-        - git
+    - name: Install Java
+      yum:
+        name: java-1.8.0-openjdk
+        state: present
+
+    - name: Install Git
+      yum:
+        name: git
+        state: latest
 
     - name: Download jenkins.repo
       get_url:

@@ -4,10 +4,12 @@
   become: yes
   
   tasks:
-    - name: Install Java
-      yum:
-        name: java-1.8.0-openjdk
-        state: present
+
+    - name: Install Required Packages
+      yum: name={{ item }} state=present
+      with_items:
+        - java-1.8.0-openjdk
+        - git
 
     - name: Download jenkins.repo
       get_url:
@@ -30,8 +32,11 @@
         state: started
         enabled: true
 
-    - name: Sleep for 30 seconds and continue with play
-      wait_for: timeout=30
+    - name: Sleep for 20 seconds and continue with play
+      wait_for: timeout=20
+
+    - name: Initialize Git
+      command: git init
 
     - name: Get init password Jenkins
       shell: cat /var/lib/jenkins/secrets/initialAdminPassword

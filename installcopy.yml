@@ -3,25 +3,25 @@
   hosts: all
   become: yes
   vars:
-   pk_http: httpd
-   pk_mysql: mysql
-   pk_php: php
+    pk_http: httpd
+    pk_mysql: mysql
+    pk_php: php
 
   tasks:
-   - name: Install apache server
-     yum:
-       pkg:
-         - "{{pk_http}}"
-         - "{{pk_mysql}}"
-       state: latest
+    - name: Install apache server
+      yum:
+        pkg:
+          - "{{pk_http}}"
+          - "{{pk_mysql}}"
+        state: latest
 
-   - name: Ansible copy with variables
-     copy: src={{ item.src }} dest={{ item.dest }}
-     with_items:
+    - name: Ansible copy with variables
+      copy: src={{ item.src }} dest={{ item.dest }}
+      with_items:
              - { src: '/tmp/index.html', dest: '/var/www/html' }
              - { src: '/tmp/readme.txt', dest: '/tmp' }
 
-   - name: Restart httpd service
-     service:
-          name: httpd
-          state: restarted
+    - name: Restart httpd service
+      service:
+           name: httpd
+           state: restarted

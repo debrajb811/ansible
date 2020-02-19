@@ -8,7 +8,7 @@
         dest: /tmp/
         flat: true
 
-- name: Transfer data from remote controller to host2
+- name: Transfer data from controller to remote host2
   hosts: host2
   become: yes
   tasks:

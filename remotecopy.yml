@@ -1,0 +1,17 @@
+---
+- name: Transfer data from remote host1 to controller
+  hosts: host1
+  become: yes
+  tasks:
+    - fetch:
+        src: /var/lib/jenkins/workspace/project1/index.html
+        dest: /tmp/
+        flat: true
+
+- name: Transfer data from remote controller to host2
+  hosts: host2
+  become: yes
+  tasks:
+    - copy:
+        src: /tmp/index.html
+        dest: /var/www/html

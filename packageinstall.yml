@@ -1,0 +1,20 @@
+---
+- name: Install Packages with Variables
+  hosts: all
+  become: yes
+
+  tasks:
+   - name: Install Packages
+     yum: name={{ item }} update_cache=yes state=latest
+     with_items:
+       - mysql
+       - httpd
+       - php
+       - php-mysql
+       - amazon-efs-utils
+
+   - name: Start & Enable Apache
+     systemd:
+        name: httpd
+        state: started
+        enabled: true

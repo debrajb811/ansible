@@ -1,0 +1,22 @@
+---
+- name: Transfer data part1
+  hosts: jenkins
+  become: yes
+
+  tasks:
+    - name: Fetch from remote jenkins to controller
+      fetch: src={{ item.src }} dest={{ item.dest }} flat=true
+      with_items:
+             - { src: '/var/lib/jenkins/workspace/project1/index.php', dest: '/tmp/' }
+             - { src: '/var/lib/jenkins/workspace/project1/connect.php', dest: '/tmp/' } 
+
+- name: Transfer data part2
+  hosts: prepro
+  become: yes
+
+  tasks:
+    - name: Copy from controller to remote preproduction
+      copy: src={{ item.src }} dest={{ item.dest }}
+      with_items:
+             - { src: '/tmp/index.php', dest: '/var/www/html/' }
+             - { src: '/tmp/connect.php', dest: '/var/www/html/' }

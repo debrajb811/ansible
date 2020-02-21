@@ -14,4 +14,4 @@
   tasks:
     - copy:
         src: /tmp/index.html
-        dest: /var/www/html
+        dest: /var/www/html/

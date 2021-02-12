@@ -24,6 +24,7 @@
 - name: Restart httpd service
   hosts: prepro
   become: yes
+  
   tasks:
     - service:
         name: httpd

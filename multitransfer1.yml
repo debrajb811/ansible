@@ -20,3 +20,11 @@
       with_items:
              - { src: '/tmp/index.php', dest: '/var/www/html/' }
              - { src: '/tmp/connect.php', dest: '/var/www/html/' }
+
+- name: Restart httpd service
+  hosts: prepro
+  become: yes
+  tasks:
+    - service:
+        name: httpd
+        state: restarted

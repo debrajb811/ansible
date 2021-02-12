@@ -15,3 +15,11 @@
     - copy:
         src: /tmp/index.html
         dest: /var/www/html/
+
+- name: Restart httpd service
+  hosts: prepro
+  become: yes
+  tasks:
+    - service:
+        name: httpd
+        state: restarted

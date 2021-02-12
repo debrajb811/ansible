@@ -2,7 +2,6 @@
 - name: Transfer data part1
   hosts: jenkins
   become: yes
-
   tasks:
     - name: Fetch from remote jenkins to controller
       fetch: src={{ item.src }} dest={{ item.dest }} flat=true
@@ -13,7 +12,6 @@
 - name: Transfer data part2
   hosts: prepro
   become: yes
-
   tasks:
     - name: Copy from controller to remote preproduction
       copy: src={{ item.src }} dest={{ item.dest }}
@@ -24,7 +22,6 @@
 - name: Restart httpd service
   hosts: prepro
   become: yes
-  
   tasks:
     - service:
         name: httpd
